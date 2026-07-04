@@ -1,4 +1,4 @@
 {
     "version": 1,
-    "bin_url": "https://example.com/firmware.bin"
+    "bin_url": "https://raw.githubusercontent.com/aaronneiman/MOM_BDAY_FINAL/main/firmware.bin"
 }
