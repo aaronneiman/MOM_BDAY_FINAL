@@ -24,23 +24,27 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <HTTPUpdate.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h>
 #include <TFT_eSPI.h>
 #include "secrets.h" // WIFI_SSID, WIFI_PASSWORD, WEATHER_API_KEY
+#include "currentTime.h"
+#include "elapsedTime.h"
+#include "issTracker.h"
+#include "weatherNow.h"
+
+TFT_eSPI tft = TFT_eSPI(); // Create an instance of the TFT_eSPI class
+
+
 
 // Each state's actual logic lives in its own file pair — main.cpp just
 // knows their names, not how they work internally.
-
-#include "clock_state.h"
-#include "weather_state.h"
-#include "iss_state.h"
-
 // ------------------------------------------------------------
 // CONFIG
 // ------------------------------------------------------------
 
-const char* VERSION_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/version.json";
+const char* VERSION_URL = "https://raw.githubusercontent.com/aaronneiman/MOM_BDAY_FINAL/main/version.json";
 #define FIRMWARE_VERSION 1
 const unsigned long UPDATE_CHECK_INTERVAL = 24UL * 60UL * 60UL * 1000UL; // 24 hours
 
@@ -61,9 +65,10 @@ const unsigned long UPDATE_CHECK_INTERVAL = 24UL * 60UL * 60UL * 1000UL; // 24 h
 int currentState = 0;
 
 void (*states[])() = {
-  stateClock,
-  stateWeather,
-  stateISS,
+  currentTime,
+  elapsedTime,
+  issTracker,
+  weatherNow,
   // add new state function names here as you build them
 };
 
