@@ -1,6 +1,7 @@
 // Libraries
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <TFT_eSPI.h>
 #include <ArduinoJson.h>
 #include <cmath>
 #include "secrets.h"
