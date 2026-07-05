@@ -93,6 +93,14 @@ void setup() {
   pinMode(BUTTON_NEXT, INPUT_PULLUP);
   pinMode(BUTTON_PREV, INPUT);
 
+  tft.init();
+  tft.fillScreen(TFT_PURPLE);
+  tft.setTextColor(TFT_WHITE, TFT_PURPLE);
+  tft.setTextSize(2);
+  tft.setCursor(0, 0);
+  tft.println("Happy Birthday, Mom!");
+  tft.println("Love, Aaron & Maddie");
+
   connectToWiFi();
 
   // Sync the clock once here via NTP. stateClock() then just reads the
@@ -193,7 +201,7 @@ void checkForUpdate() {
   String payload = http.getString();
   http.end();
 
-  StaticJsonDocument<512> doc;
+  JsonDocument doc;
   if (deserializeJson(doc, payload)) {
     Serial.println("Failed to parse version.json");
     return;
